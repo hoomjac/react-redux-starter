@@ -14,7 +14,7 @@ import Loadable from 'react-loadable'
 import { ActivityIndicator } from 'antd-mobile'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import router from '~common/routers'
-import { ThemeProvider, injectGlobal } from 'styled-components'
+import { ThemeProvider, createGlobalStyle } from 'styled-components'
 import actions from './actions'
 import { Toast } from 'antd-mobile'
 
@@ -31,7 +31,7 @@ const theme = {
 }
 
 // 全局样式
-injectGlobal`
+const GlobalStyles = createGlobalStyle`
   html {
      -webkit-overflow-scrolling: touch;
     box-sizing: border-box;
@@ -101,7 +101,10 @@ const initView = () => {
     <Provider store={store}>
       <ThemeProvider theme={theme}>
         <Router history={history}>
-          <>{routes}</>
+          <>
+            <GlobalStyles />
+            {routes}
+          </>
         </Router>
       </ThemeProvider>
     </Provider>,

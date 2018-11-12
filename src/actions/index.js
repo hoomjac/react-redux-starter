@@ -40,6 +40,13 @@ const actions = {}
 for (let i = 0; i < keys.length; i += 1) {
   const actionActions = context(keys[i]).default
   for (const [key, value] of Object.entries(actionActions)) {
+    if (!!actions[key]) {
+      throw new Error(
+        `Action must be unique: action "${key}" in ${
+        keys[i].split('/')[1]
+        } is duplicated`
+      )
+    }
     actions[key] = proxyAction(value)
   }
 }

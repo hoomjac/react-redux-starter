@@ -1,16 +1,16 @@
+/* eslint-disable default-case */
 import types from '../common/types'
+import produce from 'immer'
 
 export default {
   namespace: 'global',
-  reducer: (state = { showLoading: false, pageEnd: false }, action) => {
-    switch (action.type) {
-      case types.global.SHOW_GLOBAL_LOADING:
-        return {
-          ...state,
-          showLoading: action.payload
-        }
-      default:
-        return state
-    }
-  }
+  reducer: produce(
+    (draft, action) => {
+      switch (action.type) {
+        case types.global.SHOW_GLOBAL_LOADING:
+          draft.showLoading = action.payload
+      }
+    },
+    { showLoading: false }
+  )
 }
